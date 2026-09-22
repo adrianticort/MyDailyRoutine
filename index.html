@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>My Daily Routine 🔥 Prototipo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Fondo animado -->
+    <div class="bg-blobs" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <!-- ============ PANTALLA: INICIO ============ -->
+    <section id="screenHome" class="screen active" data-screen="home">
+      <header class="home-header">
+        <span class="logo-badge">🔥</span>
+        <h1 class="brand-name">My Daily Routine</h1>
+      </header>
+
+      <div class="greeting">
+        <h2 class="greeting-hello">Hola, Adrián</h2>
+        <p class="greeting-streak">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          Llevas <strong id="streakCount">12</strong> días de racha
+        </p>
+      </div>
+
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button id="prevMonth" class="cal-nav" aria-label="Mes anterior">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <h3 id="calendarTitle">Septiembre 2026</h3>
+          <button id="nextMonth" class="cal-nav" aria-label="Mes siguiente">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+        <div class="calendar-weekdays">
+          <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"><!-- generado por JS --></div>
+      </div>
+
+      <div class="motivation-quote">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+        <p id="motivationText">Pequeños pasos cada día.</p>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA: DÍA ============ -->
+    <section id="screenDay" class="screen no-nav" data-screen="day">
+      <div class="subscreen-header">
+        <button id="dayBack" class="back-btn">
+          <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="m15 18-6-6 6-6"/></svg>
+          Inicio
+        </button>
+      </div>
+      <h2 id="dayTitle" class="day-title">—</h2>
+      <p class="day-subtitle">Objetivos de hoy</p>
+      <div id="dayCards" class="day-cards"><!-- generado por JS --></div>
+      <button id="addObjectiveBtn" class="fab" aria-label="Añadir objetivo">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+      </button>
+    </section>
+
+    <!-- ============ PANTALLA: DETALLE DE OBJETIVO ============ -->
+    <section id="screenObjective" class="screen no-nav" data-screen="objective">
+      <div class="subscreen-header">
+        <button id="objBack" class="back-btn">
+          <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="m15 18-6-6 6-6"/></svg>
+          Volver
+        </button>
+      </div>
+      <div class="objective-meta">
+        <span id="objIcon" class="objective-icon">🍳</span>
+        <h2 id="objTitle" class="objective-title">DESAYUNOS</h2>
+        <p id="objDate" class="objective-date">—</p>
+      </div>
+      <ul id="objItems" class="objective-list"><!-- generado por JS --></ul>
+      <div class="status-toggle">
+        <button id="statusCompleted" data-status="completado">Completado</button>
+        <button id="statusPending" data-status="pendiente">Pendiente</button>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA: ESTADÍSTICAS ============ -->
+    <section id="screenStats" class="screen" data-screen="stats">
+      <header class="home-header">
+        <h1 class="screen-title">Estadísticas</h1>
+      </header>
+
+      <div class="placeholder-card">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+        <p class="placeholder-title">Tu progreso aparecerá aquí</p>
+        <p class="placeholder-sub">Esta sección se desarrollará más adelante con gráficos y tendencias.</p>
+      </div>
+
+      <div class="progress-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statStreak">12</div>
+          <div class="stat-label">Racha actual</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statDone">—</div>
+          <div class="stat-label">Días cumplidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statObjectives">—</div>
+          <div class="stat-label">Objetivos totales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statConsistency">—</div>
+          <div class="stat-label">Consistencia</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA: PERFIL ============ -->
+    <section id="screenProfile" class="screen" data-screen="profile">
+      <header class="home-header">
+        <h1 class="screen-title">Perfil</h1>
+      </header>
+
+      <div class="profile-card">
+        <div class="profile-avatar">A</div>
+        <div>
+          <div class="profile-name">Adrián</div>
+          <div class="profile-handle">Miembro desde septiembre 2026</div>
+        </div>
+      </div>
+
+      <div class="profile-info-list">
+        <div class="profile-info-row">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <div>
+            <div class="profile-info-label">Racha actual</div>
+            <div class="profile-info-value"><span id="profileStreak">0</span> días</div>
+          </div>
+        </div>
+        <div class="profile-info-row">
+          <svg class="icon" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+          <div>
+            <div class="profile-info-label">Objetivo actual</div>
+            <div class="profile-info-value">Rutina + estudio constante</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NAVEGACIÓN INFERIOR ============ -->
+    <nav id="bottomNav" class="bottom-nav">
+      <button class="nav-item active" data-tab="home" aria-label="Inicio">
+        <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="nav-label">Inicio</span>
+      </button>
+      <button class="nav-item" data-tab="stats" aria-label="Estadísticas">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+        <span class="nav-label">Estadísticas</span>
+      </button>
+      <button class="nav-item" data-tab="profile" aria-label="Perfil">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="nav-label">Perfil</span>
+      </button>
+    </nav>
+
+    <!-- ============ MODAL: AÑADIR OBJETIVO ============ -->
+    <div id="addModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Añadir objetivo</h2>
+          <button id="closeModal" class="modal-close" aria-label="Cerrar">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Elige una categoría para este día.</p>
+          <div id="categoryPicker" class="category-picker"><!-- generado por JS --></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+      <span id="toastMsg">Guardado</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
