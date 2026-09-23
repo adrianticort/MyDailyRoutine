@@ -137,13 +137,7 @@ function buildCategoryContent(cat, date) {
 }
 
 function defaultStatusFor(date) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  if (d.getTime() >= today.getTime()) return 'pendiente';
-  // días pasados: variedad determinista para que el prototipo no se vea vacío
-  return (date.getDate() % 3 !== 0) ? 'completado' : 'pendiente';
+  return 'pendiente';
 }
 
 function getDayData(dateKey) {
@@ -272,10 +266,13 @@ function renderCalendar() {
   });
 }
 
+// Frases motivacionales
 function updateQuote() {
   const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
   $('#motivationText').textContent = quote;
 }
+
+
 
 // ================================
 // Pantalla: Día
@@ -485,6 +482,7 @@ function showToast(message, type = 'success') {
 function init() {
   loadState();
   updateQuote();
+  $('#newQuoteBtn').addEventListener('click', updateQuote);
   render();
 
   // Navegación inferior
