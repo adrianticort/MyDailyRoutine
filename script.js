@@ -5,13 +5,14 @@
 
 const STORAGE_KEY = 'mydailyroutine_proto_v1';
 
-const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'rutina', 'clase'];
+const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'rutina', 'clase' , 'cenas'];
 
 const CATEGORY_META = {
   desayunos:  { icon: '🍳', label: 'Desayunos',  subtitle: 'Tu desayuno del día' },
   ejercicios: { icon: '🏋️', label: 'Ejercicios', subtitle: 'Entrenamiento de hoy' },
   rutina:     { icon: '📋', label: 'Rutina',      subtitle: 'Tareas del día' },
-  clase:      { icon: '📚', label: 'Clase',       subtitle: 'Asignaturas de hoy' }
+  clase:      { icon: '📚', label: 'Clase',       subtitle: 'Asignaturas de hoy' },
+  cenas:      { icon: '🥗', label: 'Cenas',       subtitle: 'Tu cena del día' }
 };
 
 // Contenido de ejemplo (rota según el día del mes para dar variedad)
@@ -37,6 +38,12 @@ const CONTENT_POOL = {
     ['Matemáticas', 'Lengua', 'Historia'],
     ['Física', 'Inglés', 'Programación'],
     ['Química', 'Educación Física']
+  ],
+  cenas: [
+    ['Ensalada mixta', 'Pechuga de pollo a la plancha', 'Infusión'],
+    ['Crema de verduras', 'Tortilla francesa', 'Yogur'],
+    ['Pescado al horno', 'Verduras al vapor', 'Fruta'],
+    ['Sopa de verduras', 'Tofu a la plancha', 'Manzana']
   ]
 };
 
@@ -123,7 +130,7 @@ function saveState() {
 
 function getDayCategories(date) {
   const dow = date.getDay(); // 0 domingo .. 6 sábado
-  const cats = ['desayunos', 'rutina'];
+  const cats = ['desayunos', 'rutina','cenas'];
   if (dow !== 0) cats.push('ejercicios');      // domingo: descanso de ejercicio
   if (dow !== 0 && dow !== 6) cats.push('clase'); // fin de semana: sin clase
   return CATEGORY_ORDER.filter(c => cats.includes(c));
@@ -248,13 +255,9 @@ function renderCalendar() {
     if (isToday) classes += ' today';
     if (complete) classes += ' day-complete';
 
-    let dots = '';
-    for (let i = 0; i < totalDots; i++) dots += '<span></span>';
-
     html += `
       <button class="${classes}" data-date-key="${dateKey}">
         <span>${d}</span>
-        <span class="cal-day-dots">${dots}</span>
       </button>
     `;
   }
