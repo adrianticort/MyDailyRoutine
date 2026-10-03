@@ -5,18 +5,19 @@
 
 const STORAGE_KEY = 'mydailyroutine_proto_v1';
 
-const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'rutina', 'clase', 'cenas'];
+// 'rutina' eliminada de la lista
+const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'clase', 'meriendas', 'cenas'];
 
 const CATEGORY_META = {
   desayunos:  { icon: '🍳', label: 'Desayunos',  subtitle: 'Tu desayuno del día' },
   ejercicios: { icon: '🏋️', label: 'Ejercicios', subtitle: 'Entrenamiento de hoy' },
-  rutina:     { icon: '📋', label: 'Rutina',      subtitle: 'Tareas del día' },
+  meriendas:  { icon: '🥤', label: 'Meriendas',  subtitle: 'Tu merienda del día' },
   clase:      { icon: '📚', label: 'Clase',       subtitle: 'Asignaturas de hoy' },
   cenas:      { icon: '🥗', label: 'Cenas',       subtitle: 'Tu cena del día' }
 };
 
 // ================================
-// Estructura de Recetas con Macros Desglosados
+// Estructura de Recetas
 // ================================
 
 const WEEKLY_RECIPES = {
@@ -30,6 +31,15 @@ const WEEKLY_RECIPES = {
       porQue: 'Desayuno energético pero tienes muchas horas hasta entrenar, por lo que no necesitas limitar los carbohidratos.',
       sustituciones: ['Avena → 100g de pan integral', 'Crema de cacahuete → 20g de nueces'],
       macros: { prot: '33g', carbs: '112g', grasa: '27g', kcal: '800' }
+    },
+    meriendas: {
+      titulo: 'Batido de proteína con plátano y cacahuete',
+      ingredientes: '30g proteína en polvo + 250ml leche o bebida vegetal + 1 plátano + 10g crema de cacahuete',
+      preparacion: 'Tritura todos los ingredientes en la batidora durante 30 segundos.',
+      tiempo: '3 min',
+      porQue: 'Merienda de rápida digestión ideal para cargar energía y proteína unas horas antes de entrenar en casa.',
+      sustituciones: ['Proteína en polvo → 200g queso fresco batido 0%'],
+      macros: { prot: '32g', carbs: '35g', grasa: '12g', kcal: '380' }
     },
     cenas: {
       titulo: 'Pollo con arroz y verduras',
@@ -50,6 +60,15 @@ const WEEKLY_RECIPES = {
       sustituciones: ['Huevos → 100g de pavo', 'Aguacate → 20–25g de frutos secos'],
       macros: { prot: '25g', carbs: '79g', grasa: '24g', kcal: '600' }
     },
+    meriendas: {
+      titulo: 'Tostadas integrales con queso fresco y pavo',
+      ingredientes: '60g pan integral + 60g pavo bajo en sal + 40g queso fresco 0%',
+      preparacion: 'Tuesta el pan y añade las lonchas de queso fresco y pavo.',
+      tiempo: '5 min',
+      porQue: 'Snack ligero de baja carga grasa para no ir pesado a la clase de artes marciales.',
+      sustituciones: ['Pavo → Atún al natural'],
+      macros: { prot: '26g', carbs: '32g', grasa: '10g', kcal: '340' }
+    },
     cenas: {
       titulo: 'Pasta con atún y tomate',
       ingredientes: '110g pasta en crudo + 120g atún al natural + 150g tomate + 15g aceite + 30g queso rallado + 1 fruta',
@@ -68,6 +87,15 @@ const WEEKLY_RECIPES = {
       sustituciones: ['Manzana → Pera', 'Nueces → Almendras'],
       macros: { prot: '30g', carbs: '102g', grasa: '24g', kcal: '730' }
     },
+    meriendas: {
+      titulo: 'Bowl de yogur proteico con frutos rojos y almendras',
+      ingredientes: '200g yogur proteico + 80g frutos rojos congelados o frescos + 15g almendras',
+      preparacion: 'Mezcla el yogur con los frutos rojos y corona con las almendras troceadas.',
+      tiempo: '3 min',
+      porQue: 'Aporta antioxidantes y proteína sin generar pesadez digestiva.',
+      sustituciones: ['Almendras → Nueces o semillas de chía'],
+      macros: { prot: '25g', carbs: '28g', grasa: '12g', kcal: '320' }
+    },
     cenas: {
       titulo: 'Patata, ternera y verduras',
       ingredientes: '400g patata + 150g carne de ternera + 200g verduras + 15g aceite de oliva + 1 yogur natural',
@@ -85,6 +113,14 @@ const WEEKLY_RECIPES = {
       sustituciones: ['Pavo → 2 huevos', 'Leche → 250g yogur natural + 1 fruta'],
       macros: { prot: '45g', carbs: '92g', grasa: '24g', kcal: '730' }
     },
+    meriendas: {
+      titulo: 'Tortitas rápidas de avena y claras con canela',
+      ingredientes: '40g harina de avena + 120ml claras de huevo + canela al gusto',
+      preparacion: 'Bate la harina con las claras y cuaja en sartén antiadherente vuelta y vuelta.',
+      tiempo: '6 min',
+      porQue: 'Excelente fuente de carbohidratos limpios de asimilación progresiva antes de entrenar.',
+      macros: { prot: '28g', carbs: '42g', grasa: '8g', kcal: '360' }
+    },
     cenas: {
       titulo: 'Arroz con pollo y verduras',
       ingredientes: '110g arroz en crudo + 160g pollo + 200g verduras + 15g aceite de oliva + 1 fruta',
@@ -100,6 +136,14 @@ const WEEKLY_RECIPES = {
       tiempo: '7 min',
       porQue: 'Permite empezar el día con bastante energía sin depender de la comida para cubrir todo.',
       macros: { prot: '36g', carbs: '108g', grasa: '22g', kcal: '760' }
+    },
+    meriendas: {
+      titulo: 'Batido post-gimnasio de fresas y avena',
+      ingredientes: '30g proteína de suero + 40g copos de avena + 150g fresas + 250ml agua o leche',
+      preparacion: 'Tritura todo hasta conseguir una textura homogénea.',
+      tiempo: '3 min',
+      porQue: 'Perfecto para tomar inmediatamente tras salir del gimnasio e iniciar la recuperación muscular.',
+      macros: { prot: '30g', carbs: '52g', grasa: '10g', kcal: '410' }
     },
     cenas: {
       titulo: 'Salmón con patata y verduras',
@@ -118,6 +162,14 @@ const WEEKLY_RECIPES = {
       sustituciones: ['Huevos → 80–100g pavo', 'Pan → 70–80g avena cocida con leche'],
       macros: { prot: '31g', carbs: '82g', grasa: '23g', kcal: '630' }
     },
+    meriendas: {
+      titulo: 'Sandwich de atún al natural con canónigos',
+      ingredientes: '60g pan integral + 80g atún al natural escurrido + 1 puñado de canónigos + 5g aceite',
+      preparacion: 'Mezcla el atún con el aceite y monta el sandwich con los canónigos.',
+      tiempo: '4 min',
+      porQue: 'Merienda fácil y rápida de fin de semana rica en proteínas.',
+      macros: { prot: '34g', carbs: '38g', grasa: '11g', kcal: '390' }
+    },
     cenas: {
       titulo: 'Pasta con ternera',
       ingredientes: '110g pasta en crudo + 150g ternera + 200g tomate/verduras + 15g aceite + 30g queso + 1 fruta',
@@ -134,6 +186,14 @@ const WEEKLY_RECIPES = {
       sustituciones: ['Avena → 70–80g pan', 'Plátano → 1 pera madura'],
       macros: { prot: '28g', carbs: '90g', grasa: '20g', kcal: '675' }
     },
+    meriendas: {
+      titulo: 'Requesón con manzana y mantequilla de almendras',
+      ingredientes: '150g requesón o queso cotage + 1 manzana troceada + 15g mantequilla de almendra',
+      preparacion: 'Corta la manzana en dados y mézclala con el requesón y la mantequilla de almendras.',
+      tiempo: '4 min',
+      porQue: 'Excelente snack saciante y rico en caseína para el descanso dominical.',
+      macros: { prot: '22g', carbs: '25g', grasa: '14g', kcal: '310' }
+    },
     cenas: {
       titulo: 'Garbanzos con arroz, huevo y verduras',
       ingredientes: '150g garbanzos cocidos + 80g arroz en crudo + 2 huevos + 200g verduras + 10g aceite + 1 yogur natural',
@@ -144,11 +204,6 @@ const WEEKLY_RECIPES = {
 };
 
 const CONTENT_POOL = {
-  rutina: [
-    ['Sacar al perro', 'Estiramientos', 'Skin care'],
-    ['Orden de la habitación', 'Leer 15 min', 'Planificar el día'],
-    ['Meditar 10 min', 'Beber 2L de agua', 'Skin care']
-  ],
   clase: [
     ['Matemáticas', 'Lengua', 'Historia'],
     ['Física', 'Inglés', 'Programación'],
@@ -172,7 +227,8 @@ const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto
 // Utilidades
 // ================================
 
-const $ = (sel) => document.querySelector(sel); const $$ = (sel) => document.querySelectorAll(sel);
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 function dateKeyFromParts(y, m, d) { return `${y}-${pad2(m + 1)}-${pad2(d)}`; }
@@ -195,8 +251,8 @@ function formatLongDate(date) { return `${date.getDate()} de ${MONTHS[date.getMo
 // ================================
 
 let state = {
-  added: {},            // { dateKey: { categoria: {icon,label,subtitle,items,status} } }
-  statusOverrides: {},  // { dateKey: { categoria: 'completado' | 'pendiente' } }
+  added: {},            
+  statusOverrides: {},  
   calendarYear: null,
   calendarMonth: null,
   modalDateKey: null
@@ -232,13 +288,14 @@ function saveState() {
 }
 
 // ================================
-// Generación de datos de ejemplo
+// Generación de datos
 // ================================
 
 function getDayCategories(date) {
-  const dow = date.getDay(); // 0 domingo .. 6 sábado
-  const cats = ['desayunos', 'rutina', 'cenas', 'ejercicios'];
-  if (dow !== 0 && dow !== 6) cats.push('clase'); // fin de semana: sin clase
+  const dow = date.getDay(); 
+  // 'rutina' eliminada de la lista
+  const cats = ['desayunos', 'ejercicios', 'meriendas', 'cenas'];
+  if (dow !== 0 && dow !== 6) cats.push('clase'); 
   return CATEGORY_ORDER.filter(c => cats.includes(c));
 }
 
@@ -247,22 +304,12 @@ function buildCategoryContent(cat, date) {
   const dayRecipe = WEEKLY_RECIPES[dow];
   const meta = CATEGORY_META[cat];
 
-  if (cat === 'desayunos' && dayRecipe && dayRecipe.desayunos) {
+  if ((cat === 'desayunos' || cat === 'meriendas' || cat === 'cenas') && dayRecipe && dayRecipe[cat]) {
     return {
       icon: meta.icon,
       label: meta.label,
-      subtitle: dayRecipe.desayunos.titulo,
-      items: [dayRecipe.desayunos.ingredientes],
-      status: 'pendiente'
-    };
-  }
-
-  if (cat === 'cenas' && dayRecipe && dayRecipe.cenas) {
-    return {
-      icon: meta.icon,
-      label: meta.label,
-      subtitle: dayRecipe.cenas.titulo,
-      items: [dayRecipe.cenas.ingredientes],
+      subtitle: dayRecipe[cat].titulo,
+      items: [dayRecipe[cat].ingredientes],
       status: 'pendiente'
     };
   }
@@ -312,7 +359,7 @@ function isDayFullyDone(dateKey) {
 }
 
 // ================================
-// Navegación entre pantallas
+// Navegación
 // ================================
 
 const MAIN_TABS = ['home', 'stats', 'profile'];
@@ -473,7 +520,8 @@ function renderObjective(dateKey, category) {
   const date = dateFromKey(dateKey);
   const dow = date.getDay();
   const dayRecipe = WEEKLY_RECIPES[dow];
-  const recipeData = (category === 'desayunos' || category === 'cenas') ? dayRecipe?.[category] : null;
+  
+  const recipeData = (category === 'desayunos' || category === 'meriendas' || category === 'cenas') ? dayRecipe?.[category] : null;
 
   $('#objIcon').textContent = item.icon;
   $('#objTitle').textContent = item.label;
@@ -482,7 +530,6 @@ function renderObjective(dateKey, category) {
   const container = $('#objItems');
 
   if (recipeData) {
-    // Reemplaza la lista estándar por la tarjeta con diseño
     container.outerHTML = `
       <div id="objItems" class="recipe-card-detail">
         <h3 class="recipe-title">${recipeData.titulo}</h3>
@@ -518,7 +565,6 @@ function renderObjective(dateKey, category) {
       </div>
     `;
   } else {
-    // Vista de lista estándar para rutinas/ejercicios
     container.outerHTML = `
       <ul id="objItems" class="objective-list">
         ${item.items.map(i => `<li>${i}</li>`).join('')}
@@ -700,4 +746,4 @@ function init() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', init); 
+document.addEventListener('DOMContentLoaded', init);
