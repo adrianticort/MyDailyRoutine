@@ -212,13 +212,22 @@ const CONTENT_POOL = {
 };
 
 const QUOTES = [
-  'Pequeños pasos cada día.',
-  'La constancia vence al talento.',
-  'Hoy también cuenta.',
-  'Un poco cada día es mucho en un año.',
-  'Lo simple, bien hecho.',
-  'Vas a tu ritmo, y eso ya es avanzar.',
-  'La racha se construye hoy.'
+  'Nadie viene a hacerlo por ti.',
+  'Disciplina cuando la motivación desaparece.',
+  'No necesitas ganas. Necesitas hacerlo.',
+  'Tu futuro se construye con lo que haces hoy.',
+  'Deja de esperar el momento perfecto.',
+  'Hazlo por la persona en la que te quieres convertir.',
+  'La motivación empieza. La disciplina continúa.',
+  'No pares cuando estés cansado. Para cuando hayas terminado.',
+  'Lo difícil de empezar es empezar.',
+  'Un día o día uno. Tú decides.',
+  'La única competencia que importa es la de ayer.',
+  'No tienes que hacerlo perfecto. Tienes que hacerlo.',
+  'Mientras otros hablan, tú trabaja.',
+  'Tu esfuerzo de hoy será tu orgullo de mañana.',
+  'No abandones por un mal día.',
+  'Sigue. Incluso cuando nadie esté mirando.'
 ];
 
 const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
