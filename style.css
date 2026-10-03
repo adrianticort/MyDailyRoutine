@@ -648,6 +648,113 @@ button {
   background: var(--gradient-sun);
   color: #241a00;
 }
+/* ================================
+   Estilo de Tarjeta de Receta (Desayuno y Cena)
+   ================================ */
+
+.recipe-card-detail {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px 18px;
+  margin-bottom: 24px;
+}
+
+.recipe-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.recipe-ingredients {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+.recipe-prep, .recipe-time {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* Chips / Píldoras de Macronutrientes */
+.recipe-macros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.macro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Colores específicos para cada macronutriente */
+.badge-prot {
+  color: #ff6b81;
+  background: rgba(255, 107, 129, 0.12);
+}
+
+.badge-carbs {
+  color: #ffe17d;
+  background: rgba(255, 225, 125, 0.12);
+}
+
+.badge-fat {
+  color: #a29bfe;
+  background: rgba(162, 155, 254, 0.12);
+}
+
+.badge-kcal {
+  color: #ff9f43;
+  background: rgba(255, 159, 67, 0.12);
+}
+
+/* Secciones secundarias: Por qué encaja y Sustituciones */
+.recipe-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.recipe-section-title {
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.recipe-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recipe-section ul li {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 4px;
+}
+
+.recipe-section ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-1);
+}
 
 /* ================================
    Estadísticas (placeholder)
