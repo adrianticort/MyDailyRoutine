@@ -5,7 +5,7 @@
 
 const STORAGE_KEY = 'mydailyroutine_proto_v1';
 
-const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'rutina', 'clase' , 'cenas'];
+const CATEGORY_ORDER = ['desayunos', 'ejercicios', 'rutina', 'clase', 'cenas'];
 
 const CATEGORY_META = {
   desayunos:  { icon: '🍳', label: 'Desayunos',  subtitle: 'Tu desayuno del día' },
@@ -15,20 +15,135 @@ const CATEGORY_META = {
   cenas:      { icon: '🥗', label: 'Cenas',       subtitle: 'Tu cena del día' }
 };
 
-// Contenido de ejemplo (rota según el día del mes para dar variedad)
+// ================================
+// Estructura de Recetas con Macros Desglosados
+// ================================
+
+const WEEKLY_RECIPES = {
+  1: { // LUNES
+    ejercicio: ['Entrenamiento: Casa, suave, 18:30 (~1 h)'],
+    desayunos: {
+      titulo: 'Avena con plátano y crema de cacahuete',
+      ingredientes: '100g avena en seco + 300ml leche + 120g plátano + 20g crema de cacahuete',
+      preparacion: 'Calienta la leche con la avena 4–5 minutos. Añade el plátano troceado y la crema de cacahuete.',
+      tiempo: '7 min',
+      porQue: 'Desayuno energético pero tienes muchas horas hasta entrenar, por lo que no necesitas limitar los carbohidratos.',
+      sustituciones: ['Avena → 100g de pan integral', 'Crema de cacahuete → 20g de nueces'],
+      macros: { prot: '33g', carbs: '112g', grasa: '27g', kcal: '800' }
+    },
+    cenas: {
+      titulo: 'Pollo con arroz y verduras',
+      ingredientes: '100g arroz en crudo + 150g pechuga de pollo + 200g verduras + 10g aceite de oliva + 1 yogur natural + 1 fruta',
+      preparacion: 'Cocina el arroz, prepara el pollo en sartén o air fryer y añade las verduras.',
+      porQue: 'Cena completa después del entrenamiento, con carbohidratos para reponer energía y proteína para la recuperación.',
+      sustituciones: ['Pollo → Pavo', 'Arroz → 350–400g de patata cocida/asada'],
+      macros: { prot: '45g', carbs: '95g', grasa: '18g', kcal: '875' }
+    }
+  },
+  2: { // MARTES
+    ejercicio: ['Entrenamiento: Artes marciales, moderado-intenso, 18:30 (~1 h)'],
+    desayunos: {
+      titulo: 'Tostadas con huevo, aguacate y fruta',
+      ingredientes: '100g pan + 2 huevos + 70g aguacate + 200g naranja + 10g aceite de oliva',
+      tiempo: '10 min',
+      porQue: 'Al ser artes marciales por la tarde, este desayuno no necesita estar diseñado como preentrenamiento.',
+      sustituciones: ['Huevos → 100g de pavo', 'Aguacate → 20–25g de frutos secos'],
+      macros: { prot: '25g', carbs: '79g', grasa: '24g', kcal: '600' }
+    },
+    cenas: {
+      titulo: 'Pasta con atún y tomate',
+      ingredientes: '110g pasta en crudo + 120g atún al natural + 150g tomate + 15g aceite + 30g queso rallado + 1 fruta',
+      preparacion: 'Cuece la pasta, mezcla con tomate, atún y aceite y termina con el queso.',
+      porQue: 'Las artes marciales tienen una demanda energética superior, interesa una cena generosa en carbohidratos.',
+      sustituciones: ['Atún → Pollo', 'Pasta → Arroz'],
+      macros: { prot: '42g', carbs: '105g', grasa: '22g', kcal: '850' }
+    }
+  },
+  3: { // MIÉRCOLES
+    ejercicio: ['Entrenamiento: Casa, suave, 18:30 (~1 h)'],
+    desayunos: {
+      titulo: 'Yogur con avena, manzana y nueces',
+      ingredientes: '250g yogur griego natural + 100g avena + 180g manzana + 20g nueces',
+      tiempo: '5 min',
+      sustituciones: ['Manzana → Pera', 'Nueces → Almendras'],
+      macros: { prot: '30g', carbs: '102g', grasa: '24g', kcal: '730' }
+    },
+    cenas: {
+      titulo: 'Patata, ternera y verduras',
+      ingredientes: '400g patata + 150g carne de ternera + 200g verduras + 15g aceite de oliva + 1 yogur natural',
+      preparacion: 'Cocina la patata en air fryer y la carne en sartén.',
+      porQue: 'Aporta hierro, proteínas, carbohidratos y micronutrientes.',
+      macros: { prot: '40g', carbs: '90g', grasa: '25g', kcal: '850' }
+    }
+  },
+  4: { // JUEVES
+    ejercicio: ['Entrenamiento: Artes marciales, moderado-intenso, 18:30 (~1 h)'],
+    desayunos: {
+      titulo: 'Tostadas de pavo y queso + plátano',
+      ingredientes: '100g pan + 80g pavo + 30g queso + 120g plátano + 300ml leche',
+      tiempo: '8 min',
+      sustituciones: ['Pavo → 2 huevos', 'Leche → 250g yogur natural + 1 fruta'],
+      macros: { prot: '45g', carbs: '92g', grasa: '24g', kcal: '730' }
+    },
+    cenas: {
+      titulo: 'Arroz con pollo y verduras',
+      ingredientes: '110g arroz en crudo + 160g pollo + 200g verduras + 15g aceite de oliva + 1 fruta',
+      porQue: 'Comida alta en carbohidratos para recuperar de la sesión de artes marciales.',
+      macros: { prot: '46g', carbs: '108g', grasa: '18g', kcal: '875' }
+    }
+  },
+  5: { // VIERNES
+    ejercicio: ['Entrenamiento: Gimnasio intenso, 16:30 (~1 h 30 min)'],
+    desayunos: {
+      titulo: 'Porridge de avena, yogur y plátano',
+      ingredientes: '100g avena + 250g yogur griego + 120g plátano + 20g crema de cacahuete',
+      tiempo: '7 min',
+      porQue: 'Permite empezar el día con bastante energía sin depender de la comida para cubrir todo.',
+      macros: { prot: '36g', carbs: '108g', grasa: '22g', kcal: '760' }
+    },
+    cenas: {
+      titulo: 'Salmón con patata y verduras',
+      ingredientes: '150–180g salmón en crudo + 400g patata + 200g verduras + 10g aceite de oliva + 1 fruta',
+      porQue: 'Buena cena de recuperación: pescado, carbohidratos, verduras y grasa saludable.',
+      sustituciones: ['Salmón → Merluza + 10g aceite adicional', 'Patata → Arroz'],
+      macros: { prot: '40g', carbs: '88g', grasa: '30g', kcal: '900' }
+    }
+  },
+  6: { // SÁBADO
+    ejercicio: ['Entrenamiento: Gimnasio intenso, 10:30 (~1 h 30 min)'],
+    desayunos: {
+      titulo: 'Tostadas + huevos + plátano + leche',
+      ingredientes: '80g pan + 2 huevos + 120g plátano + 300ml leche',
+      preparacion: 'Tomar el desayuno sobre las 09:00 (90 min antes de entrenar). Evitar grasas pesadas.',
+      sustituciones: ['Huevos → 80–100g pavo', 'Pan → 70–80g avena cocida con leche'],
+      macros: { prot: '31g', carbs: '82g', grasa: '23g', kcal: '630' }
+    },
+    cenas: {
+      titulo: 'Pasta con ternera',
+      ingredientes: '110g pasta en crudo + 150g ternera + 200g tomate/verduras + 15g aceite + 30g queso + 1 fruta',
+      porQue: 'Comida completa para terminar de cubrir tus necesidades diarias.',
+      macros: { prot: '48g', carbs: '105g', grasa: '26g', kcal: '900' }
+    }
+  },
+  0: { // DOMINGO
+    ejercicio: ['Entrenamiento: Gimnasio intenso, 10:30 (~1 h)'],
+    desayunos: {
+      titulo: 'Cereales de avena, leche, yogur y plátano',
+      ingredientes: '60g copos de avena + 300ml leche + 200g yogur natural + 120g plátano + 15g crema de cacahuete',
+      preparacion: 'Sencillo y fácil de digerir antes del gimnasio.',
+      sustituciones: ['Avena → 70–80g pan', 'Plátano → 1 pera madura'],
+      macros: { prot: '28g', carbs: '90g', grasa: '20g', kcal: '675' }
+    },
+    cenas: {
+      titulo: 'Garbanzos con arroz, huevo y verduras',
+      ingredientes: '150g garbanzos cocidos + 80g arroz en crudo + 2 huevos + 200g verduras + 10g aceite + 1 yogur natural',
+      porQue: 'Combina legumbres, cereal y huevo para una cena completa y variada.',
+      macros: { prot: '35g', carbs: '110g', grasa: '24g', kcal: '900' }
+    }
+  }
+};
+
 const CONTENT_POOL = {
-  desayunos: [
-    ['Avena', 'Leche', 'Fruta', 'Yogur'],
-    ['Tostadas integrales', 'Aguacate', 'Huevo', 'Zumo natural'],
-    ['Yogur griego', 'Granola', 'Miel', 'Nueces'],
-    ['Tortitas de avena', 'Plátano', 'Canela']
-  ],
-  ejercicios: [
-    ['Calentamiento', 'Rutina de gimnasio', 'Ejercicios principales', 'Estiramientos'],
-    ['Cardio suave 20 min', 'Movilidad de cadera', 'Core'],
-    ['Empuje: press banca', 'Fondos', 'Flexiones'],
-    ['Piernas: sentadillas', 'Zancadas', 'Gemelos']
-  ],
   rutina: [
     ['Sacar al perro', 'Estiramientos', 'Skin care'],
     ['Orden de la habitación', 'Leer 15 min', 'Planificar el día'],
@@ -38,12 +153,6 @@ const CONTENT_POOL = {
     ['Matemáticas', 'Lengua', 'Historia'],
     ['Física', 'Inglés', 'Programación'],
     ['Química', 'Educación Física']
-  ],
-  cenas: [
-    ['Ensalada mixta', 'Pechuga de pollo a la plancha', 'Infusión'],
-    ['Crema de verduras', 'Tortilla francesa', 'Yogur'],
-    ['Pescado al horno', 'Verduras al vapor', 'Fruta'],
-    ['Sopa de verduras', 'Tofu a la plancha', 'Manzana']
   ]
 };
 
@@ -58,14 +167,12 @@ const QUOTES = [
 ];
 
 const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const WEEKDAY_SHORT = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 
 // ================================
 // Utilidades
 // ================================
 
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
+const $ = (sel) => document.querySelector(sel); const $$ = (sel) => document.querySelectorAll(sel);
 
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 function dateKeyFromParts(y, m, d) { return `${y}-${pad2(m + 1)}-${pad2(d)}`; }
@@ -130,16 +237,48 @@ function saveState() {
 
 function getDayCategories(date) {
   const dow = date.getDay(); // 0 domingo .. 6 sábado
-  const cats = ['desayunos', 'rutina','cenas'];
-  if (dow !== 0) cats.push('ejercicios');      // domingo: descanso de ejercicio
+  const cats = ['desayunos', 'rutina', 'cenas', 'ejercicios'];
   if (dow !== 0 && dow !== 6) cats.push('clase'); // fin de semana: sin clase
   return CATEGORY_ORDER.filter(c => cats.includes(c));
 }
 
 function buildCategoryContent(cat, date) {
-  const pool = CONTENT_POOL[cat];
-  const items = pool[date.getDate() % pool.length];
+  const dow = date.getDay();
+  const dayRecipe = WEEKLY_RECIPES[dow];
   const meta = CATEGORY_META[cat];
+
+  if (cat === 'desayunos' && dayRecipe && dayRecipe.desayunos) {
+    return {
+      icon: meta.icon,
+      label: meta.label,
+      subtitle: dayRecipe.desayunos.titulo,
+      items: [dayRecipe.desayunos.ingredientes],
+      status: 'pendiente'
+    };
+  }
+
+  if (cat === 'cenas' && dayRecipe && dayRecipe.cenas) {
+    return {
+      icon: meta.icon,
+      label: meta.label,
+      subtitle: dayRecipe.cenas.titulo,
+      items: [dayRecipe.cenas.ingredientes],
+      status: 'pendiente'
+    };
+  }
+
+  if (cat === 'ejercicios' && dayRecipe && dayRecipe.ejercicio) {
+    return {
+      icon: meta.icon,
+      label: meta.label,
+      subtitle: meta.subtitle,
+      items: dayRecipe.ejercicio,
+      status: 'pendiente'
+    };
+  }
+
+  const pool = CONTENT_POOL[cat] || [['Tarea predeterminada']];
+  const items = pool[date.getDate() % pool.length];
   return { icon: meta.icon, label: meta.label, subtitle: meta.subtitle, items: items.slice(), status: 'pendiente' };
 }
 
@@ -205,9 +344,7 @@ function render() {
   if (screenEl) screenEl.classList.add('active');
 
   const showNav = MAIN_TABS.includes(top.screen);
-  $('#bottomNav').classList.toggle('hidden', !showNav);
-  if (showNav) {
-    $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.tab === top.screen));
+  $('#bottomNav').classList.toggle('hidden', !showNav);   if (showNav) {     $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.tab === top.screen));
   }
 
   if (top.screen === 'home') renderHome();
@@ -234,7 +371,7 @@ function renderCalendar() {
 
   $('#calendarTitle').textContent = `${capitalize(MONTHS[month])} ${year}`;
 
-  const firstDow = (new Date(year, month, 1).getDay() + 6) % 7; // lunes = 0
+  const firstDow = (new Date(year, month, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   let html = '';
@@ -262,20 +399,15 @@ function renderCalendar() {
     `;
   }
 
-  $('#calendarGrid').innerHTML = html;
-
-  $$('#calendarGrid .cal-day:not(.empty)').forEach(btn => {
+  $('#calendarGrid').innerHTML = html;   $$('#calendarGrid .cal-day:not(.empty)').forEach(btn => {
     btn.addEventListener('click', () => navigateTo('day', { dateKey: btn.dataset.dateKey }));
   });
 }
 
-// Frases motivacionales
 function updateQuote() {
   const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
   $('#motivationText').textContent = quote;
 }
-
-
 
 // ================================
 // Pantalla: Día
@@ -339,12 +471,60 @@ function renderObjective(dateKey, category) {
   if (!item) { goBack(); return; }
 
   const date = dateFromKey(dateKey);
+  const dow = date.getDay();
+  const dayRecipe = WEEKLY_RECIPES[dow];
+  const recipeData = (category === 'desayunos' || category === 'cenas') ? dayRecipe?.[category] : null;
 
   $('#objIcon').textContent = item.icon;
-  $('#objTitle').textContent = item.label.toUpperCase();
+  $('#objTitle').textContent = item.label;
   $('#objDate').textContent = formatLongDate(date);
 
-  $('#objItems').innerHTML = item.items.map(i => `<li>${i}</li>`).join('');
+  const container = $('#objItems');
+
+  if (recipeData) {
+    // Reemplaza la lista estándar por la tarjeta con diseño
+    container.outerHTML = `
+      <div id="objItems" class="recipe-card-detail">
+        <h3 class="recipe-title">${recipeData.titulo}</h3>
+        <p class="recipe-ingredients">${recipeData.ingredientes}</p>
+        
+        ${recipeData.preparacion ? `<p class="recipe-prep"><strong>Preparación:</strong> ${recipeData.preparacion}</p>` : ''}
+        ${recipeData.tiempo ? `<p class="recipe-time">⏱️ <strong>Tiempo:</strong> ${recipeData.tiempo}</p>` : ''}
+
+        ${recipeData.macros ? `
+          <div class="recipe-macros">
+            <span class="macro-badge badge-prot">🥩 ${recipeData.macros.prot} prot</span>
+            <span class="macro-badge badge-carbs">📦 ${recipeData.macros.carbs} carbs</span>
+            <span class="macro-badge badge-fat">🥑 ${recipeData.macros.grasa} grasa</span>
+            <span class="macro-badge badge-kcal">🔥 ${recipeData.macros.kcal} kcal</span>
+          </div>
+        ` : ''}
+
+        ${recipeData.porQue ? `
+          <div class="recipe-section">
+            <div class="recipe-section-title">💡 ¿Por qué encaja?</div>
+            <p>${recipeData.porQue}</p>
+          </div>
+        ` : ''}
+
+        ${recipeData.sustituciones && recipeData.sustituciones.length ? `
+          <div class="recipe-section">
+            <div class="recipe-section-title">🔄 Sustituciones</div>
+            <ul>
+              ${recipeData.sustituciones.map(s => `<li>${s}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  } else {
+    // Vista de lista estándar para rutinas/ejercicios
+    container.outerHTML = `
+      <ul id="objItems" class="objective-list">
+        ${item.items.map(i => `<li>${i}</li>`).join('')}
+      </ul>
+    `;
+  }
 
   $('#statusCompleted').classList.toggle('active', item.status === 'completado');
   $('#statusPending').classList.toggle('active', item.status === 'pendiente');
@@ -376,7 +556,7 @@ function setObjectiveStatus(dateKey, category, status) {
 function calcStreak() {
   let streak = 0;
   const cursor = new Date();
-  cursor.setDate(cursor.getDate() - 1); // se cuenta desde ayer
+  cursor.setDate(cursor.getDate() - 1);
   while (true) {
     const key = dateKeyFromParts(cursor.getFullYear(), cursor.getMonth(), cursor.getDate());
     if (isDayFullyDone(key)) {
@@ -385,7 +565,7 @@ function calcStreak() {
     } else {
       break;
     }
-    if (streak > 60) break; // salvaguarda
+    if (streak > 60) break;
   }
   return streak;
 }
@@ -485,15 +665,10 @@ function showToast(message, type = 'success') {
 function init() {
   loadState();
   updateQuote();
-  $('#newQuoteBtn').addEventListener('click', updateQuote);
-  render();
-
-  // Navegación inferior
-  $$('.nav-item').forEach(btn => {
+  $('#newQuoteBtn').addEventListener('click', updateQuote);   render();    $$('.nav-item').forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // Calendario: cambio de mes
   $('#prevMonth').addEventListener('click', () => {
     state.calendarMonth--;
     if (state.calendarMonth < 0) { state.calendarMonth = 11; state.calendarYear--; }
@@ -505,11 +680,9 @@ function init() {
     renderCalendar();
   });
 
-  // Volver atrás
   $('#dayBack').addEventListener('click', goBack);
   $('#objBack').addEventListener('click', goBack);
 
-  // Añadir objetivo
   $('#addObjectiveBtn').addEventListener('click', () => {
     const top = currentScreen();
     openAddModal(top.dateKey);
@@ -517,7 +690,6 @@ function init() {
   $('#closeModal').addEventListener('click', closeAddModal);
   $('.modal-backdrop').addEventListener('click', closeAddModal);
 
-  // Estado del objetivo
   $('#statusCompleted').addEventListener('click', () => {
     const top = currentScreen();
     setObjectiveStatus(top.dateKey, top.category, 'completado');
@@ -528,4 +700,4 @@ function init() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', init); 
