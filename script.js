@@ -203,7 +203,144 @@ const WEEKLY_RECIPES = {
   }
 };
 
-const CONTENT_POOL = {
+
+
+// ================================
+// PLAN SEMANAL DE ENTRENAMIENTO
+// La movilidad aparece todos los días dentro del flujo real.
+// ================================
+
+const DAILY_MOBILITY = {
+  morning: {
+    title: 'Movilidad general · mañana',
+    duration: '10–12 min',
+    note: 'Activación suave para empezar el día. Sin buscar dolor ni fatiga.',
+    items: [
+      { name: 'Círculos de hombros', detail: '2 × 10 hacia delante + 10 hacia atrás', tag: 'Hombros' },
+      { name: 'Rotación torácica en cuadrupedia', detail: '2 × 6 por lado, lenta y controlada', tag: 'Torácica' },
+      { name: 'Movilidad de muñecas', detail: '60–90 s de apoyo y desplazamientos suaves', tag: 'Muñecas' },
+      { name: 'Transiciones 90/90 de cadera', detail: '2 × 6 por lado', tag: 'Cadera' },
+      { name: 'Movilidad de tobillo', detail: '2 × 8 por lado', tag: 'Tobillos' },
+      { name: 'Cat-cow', detail: '2 × 6–8 repeticiones', tag: 'Columna' }
+    ]
+  },
+  night: {
+    title: 'Movilidad / flexibilidad · noche',
+    duration: '10–15 min',
+    note: 'Ritmo tranquilo. Mantén cada posición sin rebotes y sin dolor.',
+    items: [
+      { name: 'Estiramiento de flexor de cadera', detail: '2 × 30–40 s por lado', tag: 'Cadera' },
+      { name: 'Estiramiento de pectoral', detail: '2 × 30 s por lado', tag: 'Pecho' },
+      { name: 'Estiramiento de dorsal', detail: '2 × 30–40 s por lado', tag: 'Espalda' },
+      { name: 'Isquiotibiales', detail: '2 × 30–40 s por lado', tag: 'Piernas' },
+      { name: 'Gemelo y sóleo', detail: '2 × 30 s por lado', tag: 'Tobillo' },
+      { name: 'Respiración lenta', detail: '2 min, sin forzar la amplitud', tag: 'Vuelta a la calma' }
+    ]
+  }
+};
+
+const WEEKLY_TRAINING = {
+  1: { // LUNES
+    title: 'Calistenia · Pino + empuje',
+    meta: 'Casa · suave · 18:30 · ~55–60 min',
+    intensity: 'Baja–moderada',
+    focus: ['Pino', 'Empuje', 'Core'],
+    warmup: { duration: '7–8 min', items: ['Muñecas: círculos y apoyos suaves', 'Scapular push-ups: 2 × 8', 'Pike hold: 2 × 20 s', 'Pino con pies apoyados: 2 × 15–20 s'] },
+    exercises: [
+      { name: 'Pino de pecho hacia pared', prescription: '3 × 20–30 s', rest: '60–90 s', rir: 'RIR técnico 3', technique: 'Empuja el suelo, costillas controladas y evita arquear la zona lumbar.' },
+      { name: 'Entradas controladas al pino', prescription: '5 × 2–3 intentos', rest: '45–60 s', rir: 'RIR técnico 3', technique: 'Patada progresiva; busca aprender la entrada, no acumular intentos fatigado.' },
+      { name: 'Despegues de un pie de la pared', prescription: '4 × 3–5 intentos', rest: '60 s', rir: 'RIR técnico 3', technique: 'Separa un pie brevemente y vuelve a la pared con control.' },
+      { name: 'Flexiones', prescription: '3 × 8–15', rest: '90 s', rir: 'RIR 2', technique: 'Cuerpo alineado y rango cómodo. Cuando llegues a 15 con RIR 2, aumenta dificultad.' },
+      { name: 'Hollow body hold', prescription: '3 × 20–30 s', rest: '60 s', rir: 'RIR técnico 2–3', technique: 'Zona lumbar controlada contra el suelo.' },
+      { name: 'Plancha lateral', prescription: '2 × 20–30 s por lado', rest: '45 s', rir: 'RIR 2–3', technique: 'Mantén pelvis y hombros alineados.' }
+    ],
+    progression: 'Pino: primero línea y control; después equilibrio. Flexiones: completa 3 × 15 con RIR 2 antes de subir dificultad.'
+  },
+  2: { // MARTES
+    title: 'Artes marciales',
+    meta: 'Artes marciales · moderado–intenso · 18:30 · ~60 min',
+    intensity: 'Moderada–alta',
+    focus: ['Técnica', 'Condición', 'Coordinación'],
+    warmup: { duration: '5–8 min', items: ['Movilidad dinámica de hombros y cadera', 'Desplazamientos progresivos', 'Patrones técnicos de la sesión', 'Aumentar intensidad gradualmente'] },
+    exercises: [
+      { name: 'Sesión de artes marciales', prescription: '≈ 60 min', rest: 'Según clase', rir: 'Sin RIR', technique: 'Prioriza técnica y calidad de movimiento antes que acumular fatiga.' }
+    ],
+    progression: 'La progresión depende del contenido de la clase. No añadas fuerza extra después salvo que la recuperación sea claramente buena.'
+  },
+  3: { // MIÉRCOLES
+    title: 'Calistenia · Lean planche + core',
+    meta: 'Casa · moderada · 18:30 · ~50–55 min',
+    intensity: 'Moderada',
+    focus: ['Lean planche', 'Escápulas', 'Core'],
+    warmup: { duration: '7–8 min', items: ['Muñecas: 90 s', 'Scapular push-ups: 2 × 8', 'Plancha alta: 20 s', 'Frog stand fácil: 2 × 10–15 s', 'Leans progresivos: 2 × 10 s'] },
+    exercises: [
+      { name: 'Frog stand', prescription: '3 × 15–25 s', rest: '60–90 s', rir: 'RIR técnico 2–3', technique: 'Controla hombros y muñecas; no busques el fallo.' },
+      { name: 'Planche lean', prescription: '4 × 10–20 s', rest: '90–120 s', rir: 'RIR técnico 2–3', technique: 'Codos extendidos, escápulas protraídas y hombros ligeramente por delante de las manos.' },
+      { name: 'Flexiones', prescription: '2–3 × 8–15', rest: '90 s', rir: 'RIR 2–3', technique: 'Volumen deliberadamente moderado para no interferir con viernes y domingo.' },
+      { name: 'Reverse crunch', prescription: '3 × 8–15', rest: '60 s', rir: 'RIR 2', technique: 'Eleva la pelvis sin balancearte.' },
+      { name: 'Dead bug', prescription: '2 × 8–12 por lado', rest: '45–60 s', rir: 'RIR 2–3', technique: 'Mantén el tronco estable durante toda la repetición.' }
+    ],
+    progression: 'Lean planche: aumenta primero el tiempo dentro de 10–20 s y después la inclinación. No avances a una progresión más difícil si la posición se rompe.'
+  },
+  4: { // JUEVES
+    title: 'Artes marciales',
+    meta: 'Artes marciales · moderado–intenso · 18:30 · ~60 min',
+    intensity: 'Moderada–alta',
+    focus: ['Técnica', 'Condición', 'Coordinación'],
+    warmup: { duration: '5–8 min', items: ['Movilidad dinámica', 'Desplazamientos', 'Patrones técnicos', 'Progresión gradual de intensidad'] },
+    exercises: [
+      { name: 'Sesión de artes marciales', prescription: '≈ 60 min', rest: 'Según clase', rir: 'Sin RIR', technique: 'Mantén la calidad técnica y evita añadir volumen innecesario.' }
+    ],
+    progression: 'La progresión depende de la clase. El objetivo del día no es añadir otro entrenamiento de fuerza.'
+  },
+  5: { // VIERNES
+    title: 'Gimnasio · Brazos + hombros',
+    meta: 'Gimnasio · intenso · 16:30 · ~90 min',
+    intensity: 'Alta',
+    focus: ['Bíceps', 'Tríceps', 'Hombros'],
+    warmup: { duration: '7–10 min', items: ['Movilidad de hombros y codos', 'Movilidad de muñecas', '2–3 series de aproximación del primer ejercicio', 'No convertir el calentamiento en series de fatiga'] },
+    exercises: [
+      { name: 'Bíceps · ejercicio principal', prescription: '3 × 6–10', rest: '2 min', rir: 'RIR 2 → 1', technique: 'Recorrido controlado y sin balanceo.' },
+      { name: 'Bíceps · ejercicio secundario', prescription: '3 × 8–12', rest: '90 s', rir: 'RIR 2 → 1', technique: 'Controla especialmente la fase excéntrica.' },
+      { name: 'Tríceps · ejercicio principal', prescription: '3 × 6–10', rest: '2 min', rir: 'RIR 2 → 1', technique: 'Mantén el hombro estable y evita compensaciones.' },
+      { name: 'Tríceps · ejercicio secundario', prescription: '3 × 8–15', rest: '90 s', rir: 'RIR 2 → 1', technique: 'Rango completo que puedas controlar.' },
+      { name: 'Elevaciones laterales', prescription: '3 × 10–20', rest: '60–90 s', rir: 'RIR 2', technique: 'Carga que permita mantener el movimiento limpio.' }
+    ],
+    progression: 'Usa doble progresión. Cuando completes el máximo del rango en todas las series con el RIR previsto, sube ligeramente la carga.'
+  },
+  6: { // SÁBADO
+    title: 'Gimnasio · Piernas',
+    meta: 'Gimnasio · intenso · 10:30 · ~90 min',
+    intensity: 'Alta',
+    focus: ['Cuádriceps', 'Isquios', 'Glúteos', 'Gemelos'],
+    warmup: { duration: '7–10 min', items: ['Movilidad de tobillo', 'Sentadillas sin carga', 'Bisagra de cadera', '2–4 series de aproximación del primer ejercicio'] },
+    exercises: [
+      { name: 'Hack squat', prescription: '3–4 × 6–10', rest: '2–3 min', rir: 'RIR 2 → 1', technique: 'Profundidad reproducible y controlada. Usa tus cargas de máquina solo como referencia personal.' },
+      { name: 'Bisagra de cadera', prescription: '3 × 6–10', rest: '2–3 min', rir: 'RIR 2', technique: 'Columna estable y movimiento desde la cadera.' },
+      { name: 'Curl femoral', prescription: '3 × 8–15', rest: '90 s', rir: 'RIR 1–2', technique: 'Sin rebotes; controla la vuelta.' },
+      { name: 'Extensión de cuádriceps', prescription: '2–3 × 10–15', rest: '90 s', rir: 'RIR 1–2', technique: 'Pausa breve arriba si puedes mantener control.' },
+      { name: 'Gemelos', prescription: '3 × 8–15', rest: '60–90 s', rir: 'RIR 1–2', technique: 'Recorrido amplio y controlado.' }
+    ],
+    progression: 'Aumenta carga solo cuando el rango completo y el RIR objetivo se mantengan. No uses las agujetas como criterio de progreso.'
+  },
+  0: { // DOMINGO
+    title: 'Gimnasio · Pecho + espalda',
+    meta: 'Gimnasio · intenso · 10:30 · ~60 min',
+    intensity: 'Alta',
+    focus: ['Pecho', 'Espalda', 'Fuerza'],
+    warmup: { duration: '7–10 min', items: ['Movilidad de hombros', 'Scapular push-ups', 'Series muy ligeras del primer movimiento de pecho', 'Series de aproximación del primer movimiento de espalda'] },
+    exercises: [
+      { name: 'Pecho · movimiento principal', prescription: '3–4 × 6–10', rest: '2–3 min', rir: 'RIR 2 → 1', technique: 'Repeticiones consistentes y sin sacrificar técnica por carga.' },
+      { name: 'Pecho · movimiento secundario', prescription: '3 × 8–12', rest: '90–120 s', rir: 'RIR 2', technique: 'Controla el recorrido y evita rebotes.' },
+      { name: 'Espalda · movimiento principal', prescription: '3–4 × 6–10', rest: '2–3 min', rir: 'RIR 2 → 1', technique: 'Inicia el movimiento con la espalda y mantén el tronco estable.' },
+      { name: 'Espalda · movimiento secundario', prescription: '3 × 8–12', rest: '90–120 s', rir: 'RIR 2', technique: 'Busca recorrido completo sin convertirlo en balanceo.' },
+      { name: 'Aislamiento opcional', prescription: '2 × 10–15', rest: '60–90 s', rir: 'RIR 1–2', technique: 'Solo si la recuperación de la semana es buena.' }
+    ],
+    progression: 'Mantén el volumen contenido porque el lunes vuelve el trabajo de pino. El objetivo es progresar, no acabar destruido.'
+  }
+};
+
+const CONTENT_POOL = { 
   clase: [
     ['Matemáticas', 'Lengua', 'Historia'],
     ['Física', 'Inglés', 'Programación'],
@@ -323,14 +460,18 @@ function buildCategoryContent(cat, date) {
     };
   }
 
-  if (cat === 'ejercicios' && dayRecipe && dayRecipe.ejercicio) {
-    return {
-      icon: meta.icon,
-      label: meta.label,
-      subtitle: meta.subtitle,
-      items: dayRecipe.ejercicio,
-      status: 'pendiente'
-    };
+  if (cat === 'ejercicios') {
+    const training = WEEKLY_TRAINING[dow];
+    if (training) {
+      return {
+        icon: meta.icon,
+        label: meta.label,
+        subtitle: training.meta,
+        items: [training.title],
+        status: 'pendiente',
+        training
+      };
+    }
   }
 
   const pool = CONTENT_POOL[cat] || [['Tarea predeterminada']];
@@ -538,7 +679,47 @@ function renderObjective(dateKey, category) {
 
   const container = $('#objItems');
 
-  if (recipeData) {
+  if (category === 'ejercicios' && item.training) {
+    const t = item.training;
+    container.outerHTML = `
+      <div id="objItems" class="training-detail">
+        <div class="training-hero">
+          <div class="training-hero-main">
+            <span class="training-kicker">PLAN DEL DÍA</span>
+            <h3>${t.title}</h3>
+            <p>${t.meta}</p>
+          </div>
+          <div class="training-intensity">${t.intensity}</div>
+        </div>
+
+        <section class="routine-block mobility-block">
+          <div class="routine-block-head"><div><span class="routine-eyebrow">MAÑANA</span><h4>${DAILY_MOBILITY.morning.title}</h4></div><span class="routine-time">${DAILY_MOBILITY.morning.duration}</span></div>
+          <p class="routine-note">${DAILY_MOBILITY.morning.note}</p>
+          <div class="routine-items">${DAILY_MOBILITY.morning.items.map((x,i)=>`<div class="routine-item"><span class="routine-number">${String(i+1).padStart(2,'0')}</span><div><strong>${x.name}</strong><small>${x.detail}</small></div><span class="routine-tag">${x.tag}</span></div>`).join('')}</div>
+        </section>
+
+        <section class="routine-block warmup-block">
+          <div class="routine-block-head"><div><span class="routine-eyebrow">ANTES DE ENTRENAR</span><h4>Calentamiento específico</h4></div><span class="routine-time">${t.warmup.duration}</span></div>
+          <div class="compact-list">${t.warmup.items.map((x,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span>${x}</div>`).join('')}</div>
+        </section>
+
+        <section class="routine-block main-workout-block">
+          <div class="routine-block-head"><div><span class="routine-eyebrow">SESIÓN</span><h4>Ejercicios</h4></div><span class="routine-time">${t.focus.join(' · ')}</span></div>
+          <div class="exercise-list">${t.exercises.map((x,i)=>`<article class="exercise-item"><div class="exercise-index">${String(i+1).padStart(2,'0')}</div><div class="exercise-content"><div class="exercise-name-row"><h5>${x.name}</h5><span>${x.prescription}</span></div><div class="exercise-meta"><span>Descanso <b>${x.rest}</b></span><span>${x.rir}</span></div><p>${x.technique}</p></div></article>`).join('')}</div>
+        </section>
+
+        <section class="routine-block progression-block">
+          <span class="routine-eyebrow">PROGRESIÓN</span><p>${t.progression}</p>
+        </section>
+
+        <section class="routine-block mobility-block night-block">
+          <div class="routine-block-head"><div><span class="routine-eyebrow">NOCHE</span><h4>${DAILY_MOBILITY.night.title}</h4></div><span class="routine-time">${DAILY_MOBILITY.night.duration}</span></div>
+          <p class="routine-note">${DAILY_MOBILITY.night.note}</p>
+          <div class="routine-items">${DAILY_MOBILITY.night.items.map((x,i)=>`<div class="routine-item"><span class="routine-number">${String(i+1).padStart(2,'0')}</span><div><strong>${x.name}</strong><small>${x.detail}</small></div><span class="routine-tag">${x.tag}</span></div>`).join('')}</div>
+        </section>
+      </div>
+    `;
+  } else if (recipeData) {
     container.outerHTML = `
       <div id="objItems" class="recipe-card-detail">
         <h3 class="recipe-title">${recipeData.titulo}</h3>
